@@ -8,28 +8,61 @@
 
 using namespace std;
 
-bool zhengxu(multiset<char>& p1)
+string dest = "";
+bool zhengxu(string& source)
 {
-	multiset<char>::iterator iter = p1.begin();
-	for (;  iter!=p1.end(); iter++)
+	for (size_t i = 97; i <= 122; i++)
 	{
-		
+		int pos = source.find(i);
+		if (pos!=string::npos)
+		{
+			dest.push_back(i);
+			source.erase(pos,1);
+		}
+		if (source.empty())
+		{
+			return false;
+		}
 	}
+	return true;
 }
-string sortString(string s) {
-	map<char, int>  dict;
-	multiset<char>  mulset;
-	for (size_t i = 0; i < s.size(); i++)
+bool daoxu(string& source)
+{
+	for (size_t i = 122; i >=97; i--)
 	{
-		mulset.insert(s[i]);
+		int pos = source.find(i);
+		if (pos != string::npos)
+		{
+			dest.push_back(i);
+			source.erase(pos,1);
+		}
+		if (source.empty())
+		{
+			return false;
+		}
 	}
-	while (dict.size()!=0)
+	return true;
+}
+string  sortString(string& s) {
+	dest.clear();
+	while (true)
 	{
-		map<char, int>::iterator iter = dict.begin();		
+		bool res = zhengxu(s);
+		if (!res)
+		{
+			return dest;
+		}
+		bool res2 = daoxu(s);
+		if (!res2)
+		{
+			return dest;
+		}
 	}
 }
 int main()
 {
+	string s("aaaabbbbcccc");
+	string res = sortString(s);
     std::cout << "Hello World!\n";
 }
 
