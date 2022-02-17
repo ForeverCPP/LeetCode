@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <vector>
+#include <cstdint>
+
 using namespace std;
 
 int maxSubArray(vector<int>& nums) {
@@ -25,8 +27,126 @@ int maxSubArray(vector<int>& nums) {
 	}
 	return maxSub;
 }
-int main()
+int maxSubArray2(vector<int>& nums, int Left, int Right);
+//int maxSubArray2(vector<int>& nums) {
+//	int Left = 0;
+//	int Right = nums.size();
+//	if (Left == Right)
+//	{
+//		if (nums[Left] > 0)
+//		{
+//			return nums[Left];
+//		}
+//		else
+//		{
+//			return 0;
+//		}
+//	}
+//	int Center = (Left + Right) / 2;
+//	int leftsub,rightsub, midsub, leftborder, leftborderMax, rightborder, rightborderMax;
+//	leftsub = 0;
+//	rightsub = 0;
+//	midsub = 0;
+//	leftborder = 0;
+//	leftborderMax = 0;
+//	rightborder = 0;
+//	rightborderMax = 0;
+//	leftsub = maxSubArray2(nums, Left, Center);
+//	rightsub = maxSubArray2(nums, Center + 1, Right);
+//	for (size_t i = Center; i >= Left; i--)
+//	{
+//		leftborder += nums[i];
+//		if (leftborder > leftborderMax)
+//		{
+//			leftborderMax = leftborder;
+//		}
+//	}
+//	for (size_t i = Center + 1; i < Right; i++)
+//	{
+//		rightborder += nums[i];
+//		if (rightborder > rightborderMax)
+//		{
+//			rightborderMax = rightborder;
+//		}
+//	}
+//	int max3 = (leftsub, rightsub, leftborderMax + rightborderMax);
+//	return max3;
+//}
+int maxSubArray2(vector<int>& nums,int Left,int Right) 
+{	
+	int leftsub ,rightsub, midsub,leftborder,leftborderMax, rightborder, rightborderMax;
+	if (Left == Right)
+	{
+		return 0;
+		//if (nums.size()==Left)
+		//{
+		//	return 0;
+		//}
+		//if (nums[Left]>0)
+		//{
+		//	return nums[Left];
+		//}
+		//else
+		//{
+		//	return 0;
+		//}
+	}
+	int Center = (Left + Right) / 2;
+	leftsub = INT32_MIN;
+	rightsub = INT32_MIN;
+	midsub = INT32_MIN;
+	leftborderMax = INT32_MIN;
+	rightborderMax = INT32_MIN;
+
+	leftborder = 0;
+	rightborder = 0;
+
+	leftsub = maxSubArray2(nums, Left, Center);
+	rightsub = maxSubArray2(nums, Center + 1, Right);
+	for (int i = Center; i >= Left; i--)
+	{
+		leftborder += nums[i];
+		if (leftborder > leftborderMax)
+		{
+			leftborderMax = leftborder;
+		}
+	}
+	for (int i = Center+1; i < Right; i++)
+	{
+		rightborder += nums[i];
+		if (rightborder > rightborderMax)
+		{
+			rightborderMax = rightborder;
+		}
+	}
+	int max3 = (leftsub, rightsub, (leftborderMax==INT32_MIN?0:leftborderMax) + (rightborderMax == INT32_MIN ? 0 : rightborderMax));
+	return max3;
+}
+int max3(int m1, int m2, int m3)
 {
+	int max = 0;
+	if (m1>m2)
+	{
+		max = m1;
+	}
+	else
+	{
+		max = m2;
+	}
+	if (max>m3)
+	{
+		return max;
+	}
+	else
+	{
+		return m3;
+	}
+}
+int main()
+{	
+	//vector<int> nums = { -2, 1, -3, 4, -1, 2, 1, -5, 4 };
+	vector<int> nums = { -1,-2 };
+	int k  = maxSubArray2(nums,0,2);
     std::cout << "Hello World!\n";
 }
 
