@@ -2,9 +2,53 @@
 //
 
 #include <iostream>
-
+#include<vector>
+#include<set>
+using namespace std;
+int removeDuplicates(vector<int>& nums) {
+    if (nums.empty())
+    {
+        return nums.size();
+    }
+    for (auto it = nums.begin(); it < nums.end()-1;it++ ) 
+    {
+        for (auto it_c  =   it+1;it_c!=nums.end();)
+        {
+            if (*it_c==*it)
+            {
+                it_c    =   nums.erase(it_c);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    return nums.size();
+}
+int removeDuplicatesAdv(vector<int>& nums) {
+    if (nums.empty())
+    {
+        return nums.size();
+    }
+    set<int> nums_set;
+    for (size_t i = 0; i < nums.size(); i++)
+    {
+        nums_set.insert(nums[i]);
+    }
+    nums.clear();
+    for (auto& e : nums_set)
+    {
+        nums.push_back(e);
+    }
+    //std::cout << str << ' ';
+    return nums.size();
+}
 int main()
 {
+    vector<int>    nums = { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
+    //vector<int>    nums = {1,1 };
+    removeDuplicatesAdv(nums);
     std::cout << "Hello World!\n";
 }
 
