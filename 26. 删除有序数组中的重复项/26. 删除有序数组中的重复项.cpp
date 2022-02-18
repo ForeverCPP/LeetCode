@@ -41,7 +41,6 @@ int removeDuplicatesAdv(vector<int>& nums) {
     {
         nums.push_back(e);
     }
-    //std::cout << str << ' ';
     return nums.size();
 }
 int main()
